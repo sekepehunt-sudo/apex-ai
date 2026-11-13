@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d18">
+<title>APEX AI Trading Assistant</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#080d18;color:#fff;font-family:Arial,sans-serif;padding:20px}
+header{text-align:center;padding:25px 0}
+h1{color:#38bdf8;letter-spacing:3px;margin-bottom:5px}
+.subtitle{color:#94a3b8;font-size:13px}
+.card{background:#111c2e;border:1px solid #24334b;border-radius:14px;padding:18px;margin:15px 0}
+label{display:block;color:#94a3b8;font-size:13px;margin:12px 0 7px}
+select,input,button{width:100%;padding:13px;border-radius:8px;border:1px solid #334155;background:#080d18;color:white;font-size:15px}
+button{background:#0284c7;border:0;font-weight:bold;margin-top:16px;cursor:pointer}
+button:disabled{opacity:.5}
+.upload{border:2px dashed #38bdf8;padding:25px;text-align:center;border-radius:10px;color:#94a3b8}
+#preview{width:100%;margin-top:12px;border-radius:8px;display:none}
+.result{text-align:center;font-size:24px;font-weight:bold;color:#38bdf8}
+.small{font-size:12px;color:#94a3b8;text-align:center}
+</style>
+</head>
+<body>
+<header>
+<h1>APEX AI</h1>
+<div class="subtitle">INTELLIGENT TRADING ASSISTANT</div>
+<p style="color:#22c55e;font-size:12px">● APP ONLINE</p>
+</header>
+
+<div class="card">
+<h3>01 — MARKET SELECTION</h3>
+<label>Instrument</label>
+<select id="instrument">
+<option>US30</option>
+<option>NAS100</option>
+<option>XAUUSD</option>
+<option>EURUSD</option>
+<option>GBPUSD</option>
+<option>BTCUSD</option>
+<option>Volatility 75</option>
+<option>Boom 1000</option>
+<option>Crash 1000</option>
+</select>
+
+<label>Timeframe</label>
+<select id="timeframe">
+<option>M1</option>
+<option>M5</option>
+<option>M15</option>
+<option>M30</option>
+<option>H1</option>
+<option>H4</option>
+<option>D1</option>
+</select>
+</div>
+
+<div class="card">
+<h3>02 — UPLOAD CHART</h3>
+<label>MT5 / TradingView Screenshot</label>
+<div class="upload">
+<input type="file" id="chart" accept="image/*">
+<p>Upload your trading chart</p>
+<img id="preview">
+</div>
+</div>
+
+<div class="card">
+<h3>03 — ANALYSIS</h3>
+<p class="small">Chart-based trading analysis interface</p>
+<button id="analyse" onclick="analyse()">ANALYSE CHART</button>
+<div id="output" style="display:none;margin-top:20px">
+<hr style="border-color:#334155">
+<p class="small">ANALYSIS STATUS</p>
+<div class="result" id="signal">PENDING</div>
+<p id="details" class="small"></p>
+</div>
+</div>
+
+<div class="card">
+<h3>APEX AI SYSTEM</h3>
+<p class="small">MT5 EA + TradingView strategy support</p>
+<p class="small">BUY / SELL / NO TRADE</p>
+<p class="small">Entry • Stop Loss • Take Profit • Confidence</p>
+</div>
+
+<footer class="small">APEX AI © 2026 | TRADE WITH DISCIPLINE</footer>
+
+<script>
+const chart=document.getElementById('chart');
+chart.addEventListener('change',function(){
+const file=this.files[0];
+if(!file)return;
+if(!file.type.startsWith('image/')){
+alert('Please select an image.');
+return;
+}
+const reader=new FileReader();
+reader.onload=e=>{
+const img=document.getElementById('preview');
+img.src=e.target.result;
+img.style.display='block';
+};
+reader.readAsDataURL(file);
+});
+
+function analyse(){
+const file=chart.files[0];
+if(!file){
+alert('Please upload a chart screenshot first.');
+return;
+}
+document.getElementById('output').style.display='block';
+document.getElementById('signal').textContent='ENGINE NOT CONNECTED';
+document.getElementById('details').textContent=
+'Your chart is uploaded. Connect the AI analysis engine to generate real BUY, SELL or NO TRADE signals.';
+}
+</script>
+</body>
+</html>
